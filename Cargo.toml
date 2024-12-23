@@ -1,0 +1,8 @@
+[package]
+name = "llmshell"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+kalosm = {version = "0.3.2", features=["language", "cuda"]}
+tokio = "1.42.0"
