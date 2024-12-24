@@ -1,6 +1,5 @@
-![llmterm screenshot](doc/screenshot.png)
-
 ## llmterm keeps a history of your shell usage and offers suggestions
+![llmterm screenshot](doc/screenshot.png)
 
 # cuda
 llmterm uses kalosm to interface with the LLM.  Cuda support is enabled by default.  To choose other inference methods, edit the Cargo.toml file and rebuild.
