@@ -17,8 +17,6 @@ cargo run
 ```
 cargo run -- --model llama_3_1_8b_chat
 ```
-
-# available models
 - llama_3_1_8b_chat
 - mistral_7b_instruct_2
 - phi_3_5_mini_4k_instruct
