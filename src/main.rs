@@ -1,7 +1,7 @@
-use std::io::{self, BufRead, Write};
 use clap::{Arg, Command as ClapCommand};
 use expectrl::{spawn, Eof};
 use kalosm::language::*;
+use std::io::{self, BufRead, Write};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -84,8 +84,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         // Send the command to our persistent shell
         shell.send_line(command_line)?;
 
-        // Now capture everything up to the *next* prompt as this command’s output.
-        // Because expect(...) returns a Result<Captures, Error>, we *match* on it:
+        // Now capture everything up to the next prompt as this command’s output.
+        // Because expect(...) returns a Result<Captures, Error>, we match on it:
         match shell.expect("llmterm> ") {
             Ok(captures) => {
                 // `captures.before()` gives the text that appeared before the prompt.
@@ -118,7 +118,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let mut chat = Chat::builder(model.clone())
             .with_system_prompt(
                 "You are a helpful AI who assists with command line administration. \
-                 Please use the following history to suggest the next command."
+                 Please use the following history to suggest the next command.",
             )
             .build();
         print!("[llm]\n");
