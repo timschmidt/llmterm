@@ -9,4 +9,4 @@ cargo build
 ```
 
 # to exit
-Ctrl-C
+Ctrl-C, exit, or quit
