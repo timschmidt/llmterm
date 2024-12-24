@@ -8,7 +8,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = ClapCommand::new("llmterm")
         .version("0.2.0")
         .author("Timothy Schmidt <timschmidt@gmail.com>")
-        .about("Your friendly LLM terminal companion")
+        .about("Your friendly local LLM terminal companion")
         .arg(
             Arg::new("model")
                 .short('m')
