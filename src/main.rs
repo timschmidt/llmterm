@@ -10,7 +10,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     loop {
         // Print a prompt
-        print!("llm-shell> ");
+        print!("llmterm> ");
         stdout.flush()?;
 
         // Read the line (command) from stdin

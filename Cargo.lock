@@ -2524,7 +2524,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "llmshell"
+name = "llmterm"
 version = "0.1.1"
 dependencies = [
  "kalosm",
