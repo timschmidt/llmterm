@@ -8,5 +8,20 @@ llmterm uses kalosm to interface with the LLM.  Cuda support is enabled by defau
 cargo build
 ```
 
+# to run
+```
+cargo run
+```
+
+# models
+```
+cargo run -- --model llama_3_1_8b_chat
+```
+
+# available models
+- llama_3_1_8b_chat
+- mistral_7b_instruct_2
+- phi_3_5_mini_4k_instruct
+
 # to exit
-Ctrl-C, exit, or quit
+type Ctrl-C, or exit, or quit and press enter/return.
