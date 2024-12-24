@@ -5,17 +5,17 @@ llmterm uses kalosm to interface with the LLM.  Cuda support is enabled by defau
 
 # to build
 ```
-cargo build
+cargo build --release
 ```
 
 # to run
 ```
-cargo run
+cargo run --release
 ```
 
 # models
 ```
-cargo run -- --model llama_3_1_8b_chat
+cargo run --release -- --model llama_3_1_8b_chat
 ```
 - llama_3_1_8b_chat
 - mistral_7b_instruct_2
