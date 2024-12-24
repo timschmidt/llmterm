@@ -1,5 +1,5 @@
 [package]
-name = "llmshell"
+name = "llmterm"
 version = "0.1.1"
 edition = "2021"
 author = "Timothy Schmidt <timschmidt@gmail.com>"
