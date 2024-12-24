@@ -1,9 +1,11 @@
 [package]
 name = "llmterm"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
-author = "Timothy Schmidt <timschmidt@gmail.com>"
+authors = ["Timothy Schmidt <timschmidt@gmail.com>"]
 
 [dependencies]
+clap = "4.5.23"
+expectrl = "0.7.1"
 kalosm = {version = "0.3.2", features=["language", "cuda"]}
 tokio = "1.42.0"
