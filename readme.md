@@ -23,3 +23,6 @@ cargo run -- --model llama_3_1_8b_chat
 
 # to exit
 type Ctrl-C, or exit, or quit and press enter/return.
+
+# todo
+- prune history to stay within the model's context window
