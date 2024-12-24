@@ -1,3 +1,5 @@
+![llmterm screenshot](doc/screenshot.png)
+
 ## llmterm keeps a history of your shell usage and offers suggestions
 
 # cuda
