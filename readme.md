@@ -34,3 +34,7 @@ Use Ctrl-C, or type exit or quit.
 - mode to suggest only a tab completion w/ dimmer color
 - mode to interact with the llm instead of the shell, and approve / disapprove llm generated commands
 - switch for different shells
+- tui
+  - https://github.com/fdehau/tui-rs
+  - https://github.com/ccbrown/iocraft
+  - https://github.com/ratatui/ratatui
