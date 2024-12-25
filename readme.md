@@ -28,5 +28,5 @@ Use Ctrl-C, or type exit or quit.
 # todo
 - prune history to stay within the model's context window
 - tab completion
-- support remote LLMs via API
+- support remote LLMs via API: https://github.com/floneum/floneum/tree/main/interfaces/kalosm
 - process bash_history for context
