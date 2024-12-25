@@ -23,7 +23,7 @@ cargo run --release -- --model llama_3_1_8b_chat
 - phi_3_5_mini_4k_instruct
 
 # to exit
-type Ctrl-C, or exit, or quit and press enter/return.
+Use Ctrl-C, or type exit or quit.
 
 # todo
 - prune history to stay within the model's context window
