@@ -97,12 +97,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 // Print the output to our own stdout
                 if !command_output.trim().is_empty() {
-                    println!("[Shell output]{}", command_output.trim_end());
+                    println!("[shell]{}", command_output.trim_end());
                 }
 
                 // Append to history
                 if !command_output.is_empty() {
-                    history.push_str("[Shell Output]\n");
+                    history.push_str("[shell]\n");
                     history.push_str(&command_output);
                     history.push_str("\n");
                 }
