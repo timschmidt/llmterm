@@ -29,4 +29,7 @@ Use Ctrl-C, or type exit or quit.
 - prune history to stay within the model's context window
 - tab completion
 - support remote LLMs via API: https://github.com/floneum/floneum/tree/main/interfaces/kalosm
-- process bash_history for context
+- add pruned bash_history to prompt for context
+- mode to suggest only a command
+- mode to suggest only a tab completion w/ dimmer color
+- mode to interact with the llm instead of the shell, and approve / disapprove llm generated commands
