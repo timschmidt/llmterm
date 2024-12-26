@@ -28,8 +28,8 @@ Use Ctrl-C, or type exit or quit.
 # todo
 ## easy on ramp
 - add current working directory to prompt for context
-- switch for different shells
-- mode to suggest only a command
+- command line switch for different shells
+- command line switch to suggest only a command
 ## more challenging
 - support remote LLMs via API: https://github.com/floneum/floneum/tree/main/interfaces/kalosm
 - tab completion
