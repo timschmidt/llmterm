@@ -122,7 +122,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             )
             .build();
         print!("[llm]\n");
-        chat.add_message(["Shell history:", &history].join(" "))
+        chat.add_message(["Recent shell activity:", &history].join("\n"))
             .to_std_out()
             .await
             .unwrap();
