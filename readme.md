@@ -30,6 +30,7 @@ Use Ctrl-C, or type exit or quit.
 - tab completion
 - support remote LLMs via API: https://github.com/floneum/floneum/tree/main/interfaces/kalosm
 - add pruned bash_history to prompt for context
+- add current working directory to prompt for context
 - mode to suggest only a command
 - mode to suggest only a tab completion w/ dimmer color
 - mode to interact with the llm instead of the shell, and approve / disapprove llm generated commands
