@@ -31,6 +31,7 @@ Use Ctrl-C, or type exit or quit.
 - command line switch for different shells
 - command line switch to suggest only a command
 - check if llm response is empty, if so, pop the last activity off the buffer and try again
+- allow loading of all local models supported by kalosm by name
 ## more challenging
 - support remote LLMs via API: https://github.com/floneum/floneum/tree/main/interfaces/kalosm
 - tab completion
