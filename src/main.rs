@@ -142,7 +142,7 @@ async fn main() -> Result<()> {
         let mut chat = Chat::builder(model.clone())
             .with_system_prompt(
                 "You are a helpful AI who assists with command line administration. \
-                 Please use the following history and activity to suggest the next command.",
+                 Please use the following shell activity to suggest the next command.",
             )
             .build();
         print!("[llm]\n");
