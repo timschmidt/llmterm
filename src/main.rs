@@ -1,10 +1,13 @@
 use clap::{Arg, Command as ClapCommand};
 use expectrl::{spawn, Eof};
 use kalosm::language::*;
-use std::io::{self, BufRead, Write};
+use std::io::{self, BufRead, BufReader, Write, Result};
+use std::collections::VecDeque;
+use std::env;
+use std::fs::File;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> Result<()> {
     let matches = ClapCommand::new("llmterm")
         .version("0.2.0")
         .author("Timothy Schmidt <timschmidt@gmail.com>")
@@ -23,6 +26,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .default_value("llama_3_1_8b_chat"),
         )
         .get_matches();
+
+    let home_dir = env::var("HOME").unwrap();
+    let history_path = format!("{}/.bash_history", home_dir);
+    let history_file = File::open(history_path)?;
+    let history_reader = BufReader::new(history_file);
+    // We'll store up to the last 50 lines in this VecDeque
+    let mut pruned_history = VecDeque::with_capacity(50);
+    
+    // Read line by line. If we've reached capacity,
+    // we pop from the front so only the last 50 remain.
+    for line_result in history_reader.lines() {
+        let line = line_result?;
+        if pruned_history.len() == 50 {
+            pruned_history.pop_front();
+        }
+        pruned_history.push_back(line);
+    }
 
     let model_name = matches
         .get_one::<String>("model")
@@ -56,7 +76,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Now run our REPL loop in a persistent shell session.
     let stdin = io::stdin();
     let mut stdout = io::stdout();
-    let mut history = String::new();
 
     loop {
         // Print a local prompt for the user
@@ -77,9 +96,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
 
         // Record the user's command in our history
-        history.push_str("\n[User Command] ");
-        history.push_str(command_line);
-        history.push_str("\n");
+        if pruned_history.len() == 50 {
+            pruned_history.pop_front();
+        }
+        pruned_history.push_back(["\n[user command] ", command_line].join("\n"));
 
         // Send the command to our persistent shell
         shell.send_line(command_line)?;
@@ -102,9 +122,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 // Append to history
                 if !command_output.is_empty() {
-                    history.push_str("[shell]\n");
-                    history.push_str(&command_output);
-                    history.push_str("\n");
+                    if pruned_history.len() == 50 {
+                        pruned_history.pop_front();
+                    }
+                    pruned_history.push_back(["\n[shell] ", &command_output].join("\n"));
                 }
             }
             Err(e) => {
@@ -114,15 +135,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
 
+        // Join all the lines into a single String with newlines
+        let history = pruned_history.make_contiguous().join("\n");
+
         // Use the LLM to generate a suggestion based on the history
         let mut chat = Chat::builder(model.clone())
             .with_system_prompt(
                 "You are a helpful AI who assists with command line administration. \
-                 Please use the following history to suggest the next command.",
+                 Please use the following history and activity to suggest the next command.",
             )
             .build();
         print!("[llm]\n");
-        chat.add_message(["Recent shell activity:", &history].join("\n"))
+        chat.add_message(["recent shell activity:", &history].join("\n"))
             .to_std_out()
             .await
             .unwrap();

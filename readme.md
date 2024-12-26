@@ -29,8 +29,6 @@ Use Ctrl-C, or type exit or quit.
 ## easy on ramp
 - add current working directory to prompt for context
 - switch for different shells
-- prune history to stay within the model's context window
-- add pruned bash_history to prompt for context
 - mode to suggest only a command
 ## more challenging
 - support remote LLMs via API: https://github.com/floneum/floneum/tree/main/interfaces/kalosm
