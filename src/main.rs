@@ -9,7 +9,7 @@ use std::fs::File;
 #[tokio::main]
 async fn main() -> Result<()> {
     let matches = ClapCommand::new("llmterm")
-        .version("0.2.0")
+        .version("0.2.1")
         .author("Timothy Schmidt <timschmidt@gmail.com>")
         .about("Your friendly local LLM terminal companion")
         .arg(
@@ -32,16 +32,16 @@ async fn main() -> Result<()> {
     let history_file = File::open(history_path)?;
     let history_reader = BufReader::new(history_file);
     // We'll store up to the last 50 lines in this VecDeque
-    let mut pruned_history = VecDeque::with_capacity(50);
+    let mut activity = VecDeque::with_capacity(50);
     
     // Read line by line. If we've reached capacity,
     // we pop from the front so only the last 50 remain.
     for line_result in history_reader.lines() {
         let line = line_result?;
-        if pruned_history.len() == 50 {
-            pruned_history.pop_front();
+        if activity.len() == 50 {
+            activity.pop_front();
         }
-        pruned_history.push_back(line);
+        activity.push_back(line);
     }
 
     let model_name = matches
@@ -96,10 +96,10 @@ async fn main() -> Result<()> {
         }
 
         // Record the user's command in our history
-        if pruned_history.len() == 50 {
-            pruned_history.pop_front();
+        if activity.len() == 50 {
+            activity.pop_front();
         }
-        pruned_history.push_back(["\n[user command] ", command_line].join("\n"));
+        activity.push_back(["\n[user command] ", command_line].join("\n"));
 
         // Send the command to our persistent shell
         shell.send_line(command_line)?;
@@ -122,10 +122,10 @@ async fn main() -> Result<()> {
 
                 // Append to history
                 if !command_output.is_empty() {
-                    if pruned_history.len() == 50 {
-                        pruned_history.pop_front();
+                    if activity.len() == 50 {
+                        activity.pop_front();
                     }
-                    pruned_history.push_back(["\n[shell] ", &command_output].join("\n"));
+                    activity.push_back(["\n[shell] ", &command_output].join("\n"));
                 }
             }
             Err(e) => {
@@ -136,7 +136,7 @@ async fn main() -> Result<()> {
         }
 
         // Join all the lines into a single String with newlines
-        let history = pruned_history.make_contiguous().join("\n");
+        let activity_prompt = activity.make_contiguous().join("\n");
 
         // Use the LLM to generate a suggestion based on the history
         let mut chat = Chat::builder(model.clone())
@@ -146,7 +146,7 @@ async fn main() -> Result<()> {
             )
             .build();
         print!("[llm]\n");
-        chat.add_message(["recent shell activity:", &history].join("\n"))
+        chat.add_message(["recent shell activity:", &activity_prompt].join("\n"))
             .to_std_out()
             .await
             .unwrap();
