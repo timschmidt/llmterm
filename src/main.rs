@@ -9,7 +9,7 @@ use std::fs::File;
 #[tokio::main]
 async fn main() -> Result<()> {
     let matches = ClapCommand::new("llmterm")
-        .version("0.2.1")
+        .version("0.2.2")
         .author("Timothy Schmidt <timschmidt@gmail.com>")
         .about("Your friendly local LLM terminal companion")
         .arg(
@@ -137,6 +137,14 @@ async fn main() -> Result<()> {
 
         // Join all the lines into a single String with newlines
         let activity_prompt = activity.make_contiguous().join("\n");
+        
+        // Add the current working directory for context
+        let cwd = env::current_dir().unwrap_or_default();
+        let activity_with_cwd = format!(
+            "Current working directory: {}\n\nRecent shell activity:\n{}",
+            cwd.display(),
+            activity_prompt
+        );
 
         // Use the LLM to generate a suggestion based on the history
         let mut chat = Chat::builder(model.clone())
@@ -146,7 +154,7 @@ async fn main() -> Result<()> {
             )
             .build();
         print!("[llm]\n");
-        chat.add_message(["recent shell activity:", &activity_prompt].join("\n"))
+        chat.add_message(activity_with_cwd)
             .to_std_out()
             .await
             .unwrap();

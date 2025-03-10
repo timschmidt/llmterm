@@ -1,8 +1,12 @@
 [package]
 name = "llmterm"
-version = "0.2.1"
-edition = "2021"
+version = "0.2.2"
+edition = "2024"
 authors = ["Timothy Schmidt <timschmidt@gmail.com>"]
+description = "Your friendly local LLM terminal companion"
+repository = "https://github.com/timschmidt/llmterm"
+readme = "readme.md"
+license = "MIT"
 
 [dependencies]
 clap = "4.5.23"
