@@ -9,7 +9,7 @@ use std::fs::File;
 #[tokio::main]
 async fn main() -> Result<()> {
     let matches = ClapCommand::new("llmterm")
-        .version("0.2.2")
+        .version("0.2.3")
         .author("Timothy Schmidt <timschmidt@gmail.com>")
         .about("Your friendly local LLM terminal companion")
         .arg(

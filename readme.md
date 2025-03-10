@@ -1,8 +1,8 @@
-## llmterm keeps a history of your shell usage and offers suggestions
+## llmterm offers suggestions based on your shell usage
 ![llmterm screenshot](doc/screenshot.png)
 
 # cuda
-llmterm uses kalosm to interface with the LLM.  Cuda support is enabled by default.  To choose other inference methods, edit the Cargo.toml file and rebuild.
+The kalosm crate is used to interface with the LLM.  Cuda support is enabled by default.  To choose other inference methods, edit the Cargo.toml file and rebuild.
 
 # to build
 ```
@@ -12,6 +12,11 @@ cargo build --release
 # to run
 ```
 cargo run --release
+```
+
+# to install
+```
+cargo install llmterm
 ```
 
 # models

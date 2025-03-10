@@ -2634,7 +2634,7 @@ dependencies = [
 
 [[package]]
 name = "llmterm"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "clap 4.5.23",
  "expectrl",
